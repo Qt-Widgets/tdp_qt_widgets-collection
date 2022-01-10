@@ -1,9 +1,9 @@
-#include "tdp_qt_widgets/PainterUtils.h"
+#include "tp_qt_widgets/PainterUtils.h"
 
 #include <QFont>
 #include <QStringList>
 
-namespace tdp_qt_widgets
+namespace tp_qt_widgets
 {
 
 //##################################################################################################
@@ -96,7 +96,7 @@ Qt::Alignment alignmentFromString(const QString& penJointStyleString)
     else if(part == "AlignCenter")          flags.append(Qt::AlignCenter);
   }
 
-  Qt::Alignment alignment=nullptr;
+  Qt::Alignment alignment;
   Q_FOREACH(Qt::AlignmentFlag flag, flags)
     alignment |= flag;
 

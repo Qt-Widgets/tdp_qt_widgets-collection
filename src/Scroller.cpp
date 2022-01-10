@@ -1,4 +1,4 @@
-#include "tdp_qt_widgets/Scroller.h"
+#include "tp_qt_widgets/Scroller.h"
 
 #include <QAbstractScrollArea>
 #include <QEvent>
@@ -14,7 +14,7 @@
 
 #define REFRESH_RATE 15
 
-namespace tdp_qt_widgets
+namespace tp_qt_widgets
 {
 namespace
 {
@@ -37,6 +37,9 @@ struct EventDetails_lt
 //##################################################################################################
 struct Scroller::Private
 {
+  TP_REF_COUNT_OBJECTS("tp_qt_widgets::Scroller::Private");
+  TP_NONCOPYABLE(Private);
+
   Scroller* q;
   QAbstractScrollArea* scrollArea;
 
@@ -119,7 +122,7 @@ bool Scroller::eventFilter(QObject* object, QEvent* event)
 
   QWidget* widget = nullptr;
   if(object->isWidgetType())
-    widget = dynamic_cast<QWidget*>(object);
+    widget = qobject_cast<QWidget*>(object);
 
   //Get the position of mouse events
   QPoint pos;

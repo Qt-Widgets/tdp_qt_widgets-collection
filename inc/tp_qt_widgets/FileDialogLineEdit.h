@@ -1,11 +1,12 @@
-#ifndef tdp_qt_widgets_BusyAnimationGenerator_h
-#define tdp_qt_widgets_BusyAnimationGenerator_h
+#ifndef tp_qt_widgets_FileDialogLineEdit_h
+#define tp_qt_widgets_FileDialogLineEdit_h
 
-#include "tdp_qt_widgets/Globals.h"
+#include "tp_qt_widgets/Globals.h"
 
-#include <QImage>
+#include <QWidget>
+#include <QFileDialog>
 
-namespace tdp_qt_widgets
+namespace tp_qt_widgets
 {
 
 //##################################################################################################
@@ -13,34 +14,47 @@ namespace tdp_qt_widgets
 /*!
 
 */
-class TDP_QT_WIDGETS_SHARED_EXPORT BusyAnimationGenerator
+class TP_QT_WIDGETS_SHARED_EXPORT FileDialogLineEdit: public QWidget
 {
+  Q_OBJECT
 public:
   //################################################################################################
-  BusyAnimationGenerator();
+  FileDialogLineEdit(QWidget* parent = nullptr);
 
   //################################################################################################
-  virtual ~BusyAnimationGenerator();
+  virtual ~FileDialogLineEdit();
 
   //################################################################################################
-  QImage generateImage(int size)const;
+  void setText(const QString& text);
 
   //################################################################################################
-  void setColor(const QColor& color);
+  QString text() const;
 
   //################################################################################################
-  //0 -> 1
-  void setMaxAngle(float maxAngle);
+  void setInitialDirectory(const QString& dir);
+
+  enum Mode
+  {
+    DirectoryMode,
+    OpenFileMode,
+    SaveFileMode
+  };
 
   //################################################################################################
-  //0 -> 1
-  void setLineWidth(float lineWidth);
+  void setMode(Mode mode);
 
   //################################################################################################
-  void setClockwise(bool clockwise);
+  /*!
+  The file extension filter in the format "*.png *.jpg"
+  */
+  void setFilter(const QString& filter);
 
   //################################################################################################
-  void setRepeat(int repeat);
+  void setQSettingsPath(const QString& qSettingsPath);
+
+Q_SIGNALS:
+  //################################################################################################
+  void selectionChanged();
 
 private:
   struct Private;

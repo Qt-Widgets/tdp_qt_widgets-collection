@@ -1,41 +1,40 @@
-#ifndef tdp_qt_widgets_ScrollArea_h
-#define tdp_qt_widgets_ScrollArea_h
+#ifndef tp_qt_widgets_ColorPickerWidget_h
+#define tp_qt_widgets_ColorPickerWidget_h
 
-#include "tdp_qt_widgets/Globals.h"
+#include "tp_qt_widgets/Globals.h"
 
-#include <QScrollArea>
+#include <QWidget>
 
-namespace tdp_qt_widgets
+namespace tp_qt_widgets
 {
 
 //##################################################################################################
-class TDP_QT_WIDGETS_SHARED_EXPORT ScrollArea: public QScrollArea
+//! A color picker
+class TP_QT_WIDGETS_SHARED_EXPORT ColorPickerWidget: public QWidget
 {
+  Q_OBJECT
 public:
   //################################################################################################
-  ScrollArea(QWidget* parent=nullptr);
-
-protected:
-  //################################################################################################
-  virtual void resizeEvent(QResizeEvent* event);
+  ColorPickerWidget(QWidget* parent=nullptr);
 
   //################################################################################################
-  virtual void showEvent(QShowEvent* event);
+  ~ColorPickerWidget() override;
 
   //################################################################################################
-  virtual bool viewportEvent(QEvent* event);
+  void setColor(const QColor& color);
 
   //################################################################################################
-  void enableFade(bool fade);
+  QColor color() const;
 
   //################################################################################################
-  bool isFadeEnabled();
+  Q_SIGNAL void colorChanged();
 
 private:
-  class Private;
-  friend class Private;
+  struct Private;
   Private* d;
+  friend struct Private;
 };
 
 }
+
 #endif

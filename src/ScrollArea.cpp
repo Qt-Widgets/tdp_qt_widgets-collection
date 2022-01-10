@@ -1,4 +1,4 @@
-#include "tdp_qt_widgets/ScrollArea.h"
+#include "tp_qt_widgets/ScrollArea.h"
 
 #include <QLayout>
 #include <QEvent>
@@ -7,10 +7,13 @@
 #include <QLinearGradient>
 #include <QScrollBar>
 
-namespace tdp_qt_widgets
+namespace tp_qt_widgets
 {
 class ScrollArea::Private: public QWidget
 {
+  TP_REF_COUNT_OBJECTS("tp_qt_widgets::ScrollArea::Private");
+  TP_NONCOPYABLE(Private);
+
 public:
   ScrollArea* q;
   bool fadeEnabled;
@@ -86,8 +89,8 @@ ScrollArea::ScrollArea(QWidget* parent):
   QScrollArea(parent),
   d(new Private(this))
 {
-  setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
-  setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
+  //setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
+  //setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
   setFrameShape(QFrame::NoFrame);
   d->calculate();
 }

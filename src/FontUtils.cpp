@@ -1,10 +1,10 @@
-#include "tdp_qt_widgets/FontUtils.h"
+#include "tp_qt_widgets/FontUtils.h"
 
 #include <QFont>
 #include <QFontMetricsF>
 #include <QStringList>
 
-namespace tdp_qt_widgets
+namespace tp_qt_widgets
 {
 
 //##################################################################################################
@@ -33,7 +33,7 @@ QFont fontFromString(QString fontString)
   }
   while(found);
 
-  QStringList parts = fontString.split(' ', QString::SkipEmptyParts);
+  QStringList parts = fontString.split(' ', Qt::SkipEmptyParts);
 
   for(int i=0; i<parts.size(); i++)
     parts[i] = parts.at(i).toLower();
@@ -58,7 +58,7 @@ QFont fontFromString(QString fontString)
     else if(part.endsWith("pt"))
     {
       bool ok = false;
-      float pt = part.leftRef(part.size()-2).toFloat(&ok);
+      float pt = part.left(part.size()-2).toFloat(&ok);
 
       if(ok)
         font.setPointSizeF(qreal(pt));
@@ -66,7 +66,7 @@ QFont fontFromString(QString fontString)
     else if(part.endsWith("px"))
     {
       bool ok = false;
-      int px = part.leftRef(part.size()-2).toInt(&ok);
+      int px = part.left(part.size()-2).toInt(&ok);
 
       if(ok)
         font.setPixelSize(px);
@@ -107,7 +107,7 @@ int pixelSize(float em, const QFont& font)
   QFontMetricsF fm = QFontMetricsF(font);
 
   QChar m('M');
-  return int(em * float(fm.width(m)));
+  return int(em * float(fm.boundingRect(m).width()));
 }
 
 }

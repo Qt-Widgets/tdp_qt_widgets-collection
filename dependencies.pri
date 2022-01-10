@@ -1,13 +1,7 @@
-QT += core gui
-greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
+QT += gui widgets
+DEPENDENCIES += tp_qt_utils
+INCLUDEPATHS += tp_qt_widgets/inc/
+LIBRARIES    += tp_qt_widgets
 
-#External libs
+TP_STATIC_INIT += tp_qt_widgets
 
-#Tdp libs
-include(../tdp_qt_utils/dependencies.pri)
-
-!equals(TARGET, "tdp_qt_widgets"){
-LIBS += -ltdp_qt_widgets
-}
-
-INCLUDEPATH  += $$PWD/../tdp_qt_widgets/inc/

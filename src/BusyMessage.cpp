@@ -1,8 +1,8 @@
-#include "tdp_qt_widgets/BusyMessage.h"
-#include "tdp_qt_widgets/ProgressBar.h"
-#include "tdp_qt_widgets/AnimationWidget.h"
+#include "tp_qt_widgets/BusyMessage.h"
+#include "tp_qt_widgets/ProgressBar.h"
+#include "tp_qt_widgets/AnimationWidget.h"
 
-#include "tdp_qt_utils/Progress.h"
+#include "tp_qt_utils/Progress.h"
 
 #include "tp_utils/DebugUtils.h"
 
@@ -16,18 +16,20 @@
 
 #include <QDebug>
 
-namespace tdp_qt_widgets
+namespace tp_qt_widgets
 {
 
 //##################################################################################################
 struct BusyMessage::Private: public QThread
 {
+  TP_REF_COUNT_OBJECTS("tp_qt_widgets::BusyMessage::Private");
   TP_NONCOPYABLE(Private);
+
   friend class BusyMessage;
   BusyMessage* q;
   BusyMessageConfiguration configuration;
 
-  tdp_qt_utils::Progress progress;
+  tp_qt_utils::Progress progress;
 
   QEventLoop* eventLoop;
 
@@ -75,7 +77,7 @@ struct BusyMessage::Private: public QThread
       resize();
     }
 
-    return false;
+    return QThread::eventFilter(watched, event);
   }
 
   //################################################################################################
@@ -107,7 +109,7 @@ struct BusyMessage::Private: public QThread
   //################################################################################################
   void resize()
   {
-    auto parentWidget = dynamic_cast<QWidget*>(q->parent());
+    auto parentWidget = qobject_cast<QWidget*>(q->parent());
 
     if(!parentWidget)
       return;

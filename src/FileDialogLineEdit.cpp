@@ -1,14 +1,18 @@
-#include "tdp_qt_widgets/FileDialogLineEdit.h"
+#include "tp_qt_widgets/FileDialogLineEdit.h"
 
 #include <QLineEdit>
 #include <QPushButton>
 #include <QVBoxLayout>
+#include <QSettings>
 
-namespace tdp_qt_widgets
+namespace tp_qt_widgets
 {
 //##################################################################################################
 struct FileDialogLineEdit::Private
 {
+  TP_REF_COUNT_OBJECTS("tp_qt_widgets::FileDialogLineEdit::Private");
+  TP_NONCOPYABLE(Private);
+
   FileDialogLineEdit* q;
 
   QLineEdit* lineEdit{nullptr};
@@ -17,6 +21,8 @@ struct FileDialogLineEdit::Private
   QString initialDirectory;
   QString filter;
   FileDialogLineEdit::Mode mode{FileDialogLineEdit::DirectoryMode};
+
+  QString qSettingsPath;
 
   //################################################################################################
   Private(FileDialogLineEdit* q_):
@@ -68,7 +74,11 @@ FileDialogLineEdit::FileDialogLineEdit(QWidget* parent):
     if(!str.isEmpty())
     {
       d->lineEdit->setText(str);
-      emit d->q->selectionChanged();
+
+      if(!d->qSettingsPath.isEmpty())
+        QSettings().setValue(d->qSettingsPath, d->dir());
+
+      Q_EMIT d->q->selectionChanged();
     }
   });
 
@@ -88,7 +98,7 @@ void FileDialogLineEdit::setText(const QString& text)
 }
 
 //##################################################################################################
-QString FileDialogLineEdit::text()const
+QString FileDialogLineEdit::text() const
 {
   return d->lineEdit->text();
 }
@@ -109,6 +119,14 @@ void FileDialogLineEdit::setMode(FileDialogLineEdit::Mode mode)
 void FileDialogLineEdit::setFilter(const QString& filter)
 {
   d->filter = filter;
+}
+
+//##################################################################################################
+void FileDialogLineEdit::setQSettingsPath(const QString& qSettingsPath)
+{
+  d->qSettingsPath = qSettingsPath;
+  if(!d->qSettingsPath.isEmpty())
+    d->initialDirectory = QSettings().value(d->qSettingsPath, d->initialDirectory).toString();
 }
 
 

@@ -1,13 +1,13 @@
-#ifndef tdp_qt_widgets_Animation_h
-#define tdp_qt_widgets_Animation_h
+#ifndef tp_qt_widgets_Animation_h
+#define tp_qt_widgets_Animation_h
 
-#include "tdp_qt_widgets/Globals.h"
+#include "tp_qt_widgets/Globals.h"
 
 #include <QImage>
 #include <QPixmap>
 #include <QPoint>
 
-namespace tdp_qt_widgets
+namespace tp_qt_widgets
 {
 
 //##################################################################################################
@@ -48,8 +48,9 @@ struct AnimationKeyFrame
 /*!
 
 */
-class TDP_QT_WIDGETS_SHARED_EXPORT Animation
+class TP_QT_WIDGETS_SHARED_EXPORT Animation
 {
+  TP_NONCOPYABLE(Animation);
 public:
   //################################################################################################
   //! Construct an empty animation
@@ -69,30 +70,30 @@ public:
   /*!
   This returns the original size of the animation it does nnot take scale into account.
   */
-  int width()const;
+  int width() const;
 
   //################################################################################################
   //! Returns the height of the animation
   /*!
   This returns the original size of the animation it does nnot take scale into account.
   */
-  int height()const;
+  int height() const;
 
   //################################################################################################
   //! Add a frame to the animation
   void addKeyFrame(const AnimationKeyFrame& frame);
 
   //################################################################################################
-  QImage frameImage(int frame)const;
+  QImage frameImage(int frame) const;
 
   //################################################################################################
-  QPixmap framePixmap(int frame)const;
+  QPixmap framePixmap(int frame) const;
 
   //################################################################################################
-  int frameCount()const;
+  int frameCount() const;
 
   //################################################################################################
-  bool isValid()const;
+  bool isValid() const;
 
   //################################################################################################
   //! This can be used to compensate for device scale

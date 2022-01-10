@@ -1,46 +1,33 @@
-#ifndef tdp_qt_widgets_AnimationWidget_h
-#define tdp_qt_widgets_AnimationWidget_h
+#ifndef tp_qt_Dialogs_ColorPickerDialog_h
+#define tp_qt_Dialogs_ColorPickerDialog_h
 
-#include "tdp_qt_widgets/Globals.h"
+#include "tp_qt_widgets/Globals.h"
 
-#include <QWidget>
+#include <QDialog>
 
-namespace tdp_qt_widgets
+namespace tp_qt_widgets
 {
-class Animation;
 
 //##################################################################################################
-//! An animation made up from key frames
-/*!
-
-*/
-class TDP_QT_WIDGETS_SHARED_EXPORT AnimationWidget: public QWidget
+//! A color picker
+class TP_QT_WIDGETS_SHARED_EXPORT ColorPickerDialog: public QDialog
 {
   Q_OBJECT
 public:
   //################################################################################################
-  //! Construct an empty animation
-  /*!
-  */
-  AnimationWidget(QWidget* parent = nullptr);
+  ColorPickerDialog(QDialog* parent=nullptr);
 
   //################################################################################################
-  virtual ~AnimationWidget();
+  ~ColorPickerDialog() override;
 
   //################################################################################################
-  //! Set the animation
-  void setAnimation(const Animation& animation);
+  void setColor(const QColor& color);
 
   //################################################################################################
-  void setFPS(int fps);
+  QColor color() const;
 
   //################################################################################################
-  virtual QSize	sizeHint()const;
-
-protected:
-  virtual void timerEvent(QTimerEvent* event);
-
-  virtual void paintEvent(QPaintEvent* event);
+  static QColor getColor(const QColor& color, const QString& title, QDialog* parent=nullptr);
 
 private:
   struct Private;

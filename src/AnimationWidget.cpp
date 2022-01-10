@@ -1,16 +1,19 @@
-#include "tdp_qt_widgets/AnimationWidget.h"
-#include "tdp_qt_widgets/Animation.h"
+#include "tp_qt_widgets/AnimationWidget.h"
+#include "tp_qt_widgets/Animation.h"
 
 #include <QTimerEvent>
 #include <QPainter>
 
 #include <QDebug>
 
-namespace tdp_qt_widgets
+namespace tp_qt_widgets
 {
 //##################################################################################################
 struct AnimationWidget::Private
 {
+  TP_REF_COUNT_OBJECTS("tp_qt_widgets::AnimationWidget::Private");
+  TP_NONCOPYABLE(Private);
+
   AnimationWidget* q;
 
   Animation animation;
@@ -78,7 +81,7 @@ void AnimationWidget::setFPS(int fps)
 }
 
 //################################################################################################
-QSize	AnimationWidget::sizeHint()const
+QSize	AnimationWidget::sizeHint() const
 {
   return QSize(d->animation.width(), d->animation.height());
 }
